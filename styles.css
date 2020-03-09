@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(245,245,245);
+    font-family: 'Ubuntu', sans-serif;
+}
+
+header {
+    position: relative;
+    height: 86px;
+}
+
+header img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+form {
+    display: inline-block;
+}
+
+input {
+    font: inherit;
+}
+
+button {
+    font: inherit;
+}
+
+input[type=text] {
+    display: inline-block;
+    width: 460px;
+    line-height: 20px;
+}
+
+input[type=submit], button {
+    display: inline-block;
+    padding: 3px 15px;
+    border: 1px solid #000;
+    background-color: #333333;
+    color: #eeeeee;
+}
+
+.message-input input[type=submit], .message-input button {
+    width: 100px;
+    margin-left: 5px;
+}
+
+input[type=range] {
+    position: relative;
+    top: 2px;
+    width: 160px;
+}
+
+label {
+    display: inline-block;
+    width: 120px;
+}
+
+h2 {
+    margin: 0 0 25px 0;
+    padding: 8px 10px;
+    font-size: 1em;
+    background-image: linear-gradient(#eeeeee, #e4e4e4);
+}
+
+.container {
+    width: 740px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.controls {
+    background-color: #ffffff;
+}
+
+.message-input {
+    padding: 30px 10px;
+}
+
+.expand-arrow {
+    width: 12px;
+    height: 12px;
+}
+
+.input-group {
+    margin: 10px 30px;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 8px;
+}
+
+.input-group span {
+    margin-left: 10px;
+}
+
+.col {
+    overflow: auto;
+    float: right;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    background-color: #222222;
+    border-radius: 50%;
+}
+
+.dot.on {
+    background-color: #dc143c;
+}
+
+.screenWidthContainer {
+    width: 100%;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+#options {
+    padding-bottom: 30px;
+    height: 2.1em;
+    overflow: hidden;
+    transition: height 1s;
+    -moz-transition: height 1s;
+    -ms-transition: height 1s;
+    -o-transition: height 1s;
+    -webkit-transition: height 1s;
+}
+
+#displayContainer {
+    margin: 50px auto 30px auto;
+    background-color: black;
+    overflow: auto;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+#displayContainer:fullscreen {
+    margin: 0;
+    padding: 7% 0;
+    width: 100%;
+}
