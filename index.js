@@ -6,7 +6,7 @@ const rngColumns = document.getElementById('rngColumns')
 const rngSpeed = document.getElementById('rngSpeed')
 const inputDotColor = document.getElementById('inputDotColor')
 var optionsToggle = 0
-var noOfColumns = 50
+var noOfColumns = 40
 var scrollTimer
 var scrollSpeed = 52
 var scrollActive = 0
@@ -87,7 +87,11 @@ document.getElementById('btnFullScreen').addEventListener('click', (e)=>{
     noOfColumns = Math.floor(window.screen.width / fsDotSize)
 
     clearInterval(scrollTimer)
-    e.target.previousElementSibling.requestFullscreen()
+    if (container.requestFullscreen) {
+        container.requestFullscreen()
+    } else if (container.webkitRequestFullscreen) {
+        container.webkitRequestFullscreen()
+    }
     createDisplay(noOfColumns)
     if (scrollActive) {
         screenRefresh()

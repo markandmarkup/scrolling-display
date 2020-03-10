@@ -83,6 +83,10 @@ h2 {
     padding: 30px 10px;
 }
 
+.form-buttons {
+    display: inline-block;
+}
+
 .expand-arrow {
     width: 12px;
     height: 12px;
@@ -92,6 +96,10 @@ h2 {
     margin: 10px 30px;
     border-bottom: 1px solid #eeeeee;
     padding-bottom: 8px;
+}
+
+.range-controls {
+    display: inline-block;
 }
 
 .input-group span {
@@ -143,4 +151,55 @@ h2 {
     margin: 0;
     padding: 7% 0;
     width: 100%;
+}
+
+@media screen and (max-width: 750px) {
+
+    body {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .container {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 10px;
+    }
+
+    header {
+        height: auto;
+    }
+
+    header h1 {
+        font-size: 1em;
+        margin: 12px 0 0;
+        height: 1px;
+    }
+
+    header img {
+        position: relative;
+        top: -2px;
+    }
+
+    .message-input {
+        padding: 20px 10px;
+    }
+
+    form, input[type=text] {
+        width: 100%;
+    }
+
+    .form-buttons {
+        display: block;
+        margin: 10px auto 0;
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 430px) {
+
+    .range-controls {
+        display: block;
+        margin-top: 5px;
+    }
 }
