@@ -83,41 +83,17 @@ inputDotColor.addEventListener('change', ()=>{
 })
 
 document.getElementById('btnFullScreen').addEventListener('click', (e)=>{
-    let fsDotSize = window.screen.height / 12
-    noOfColumns = Math.floor(window.screen.width / fsDotSize)
-
-    clearInterval(scrollTimer)
     if (container.requestFullscreen) {
         container.requestFullscreen()
     } else if (container.webkitRequestFullscreen) {
         container.webkitRequestFullscreen()
     }
-    createDisplay(noOfColumns)
-    if (scrollActive) {
-        screenRefresh()
-        messageScroll(displayInput)
-    }
-
-    cssDotSize = `.dot { width: ${fsDotSize}px; height: ${fsDotSize}px; }`
-    compileHeadCss()
 })
 
-container.onfullscreenchange = function (e) {
-    if (!document.fullscreenElement) {
-        noOfColumns = (rngColumns.value / 1)
-        clearInterval(scrollTimer)
-        createDisplay(noOfColumns)
-
-        if (scrollActive) {
-            screenRefresh()
-            messageScroll(displayInput)
-        }
-
-        cssDotSize = `.dot { width: ${rngDotSize.value}px; height: ${rngDotSize.value}px; }`
-        compileHeadCss()
-    }
-}
-
+container.addEventListener('fullscreenchange', containerFullScreenChange);
+container.addEventListener('webkitfullscreenchange', containerFullScreenChange);
+container.addEventListener('mozfullscreenchange', containerFullScreenChange);
+container.addEventListener('msfullscreenchange', containerFullScreenChange);
 
 fetch('./letters.json')
     .then((data)=>{
@@ -236,6 +212,26 @@ function screenRefresh() {
             dot.classList.remove('on')
         }
     })
+}
+
+function containerFullScreenChange() {
+    clearInterval(scrollTimer)
+
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        let fsDotSize = window.screen.height / 12
+        noOfColumns = Math.floor(window.screen.width / fsDotSize)
+        cssDotSize = `.dot { width: ${fsDotSize}px; height: ${fsDotSize}px; }`
+    } else {
+        noOfColumns = (rngColumns.value / 1)
+        cssDotSize = `.dot { width: ${rngDotSize.value}px; height: ${rngDotSize.value}px; }`
+    }
+
+    createDisplay(noOfColumns)
+    compileHeadCss()
+    if (scrollActive) {
+        screenRefresh()
+        messageScroll(displayInput)
+    }
 }
 
 // document.getElementById('btnCapture').addEventListener('click', displayCapture)
