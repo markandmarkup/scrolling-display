@@ -112,8 +112,8 @@ h2 {
 }
 
 .dot {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background-color: #222222;
     border-radius: 50%;
 }
@@ -140,11 +140,13 @@ h2 {
 }
 
 #displayContainer {
-    margin: 50px auto 30px auto;
+    margin: 50px 0 30px 0;
     background-color: black;
     overflow: auto;
-    width: -moz-fit-content;
-    width: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 720px;
 }
 
 #displayContainer:fullscreen {

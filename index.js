@@ -43,6 +43,7 @@ optionsHeader.addEventListener('click', (e)=>{
 rngDotSize.addEventListener('input', ()=>{
     cssDotSize = `.dot { width: ${rngDotSize.value}px; height: ${rngDotSize.value}px; }`
     compileHeadCss()
+    updateContainerSize()
     document.getElementById('rngDotSizeDisplay').textContent = rngDotSize.value
 })
 
@@ -52,8 +53,9 @@ rngColumns.addEventListener('input', ()=>{
     if (rngColumns.value > noOfColumns) {
         difference = rngColumns.value - noOfColumns
         for (let i = 0; i < difference; i++) {
-            addColumn()
             noOfColumns++
+            updateContainerSize()
+            addColumn()
         }
     } else if (rngColumns.value < noOfColumns) {
         let lastChildIndex
@@ -62,6 +64,7 @@ rngColumns.addEventListener('input', ()=>{
             lastChildIndex = container.childNodes.length - 1
             container.removeChild(container.childNodes[lastChildIndex])
             noOfColumns--
+            updateContainerSize()
         }
     }
     document.getElementById('rngColumnsDisplay').textContent = rngColumns.value
@@ -133,6 +136,10 @@ function addColumn() {
         column.appendChild(dot)
     }
     container.appendChild(column)
+}
+
+function updateContainerSize() {
+    container.style.width = rngDotSize.value * noOfColumns + 'px'
 }
 
 function compileHeadCss() {
