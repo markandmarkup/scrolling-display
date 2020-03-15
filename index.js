@@ -10,25 +10,17 @@ var noOfColumns = 40
 var scrollTimer
 var scrollSpeed = 52
 var scrollActive = 0
+var displayActive = 0
 var inputMessage
 var displayInput
 var columns
 var dots
 var cssDotSize
 var cssDotColor
+var fullscreenActive = false
 
 createDisplay(noOfColumns)
 screenRefresh()
-
-dots.forEach(function(dot){
-    dot.addEventListener('click',(e)=>{
-        if (!e.target.classList.contains('on')) {
-            e.target.classList.add('on')
-        } else {
-            e.target.classList.remove('on')
-        }
-    })
-})
 
 optionsHeader.addEventListener('click', (e)=>{
     if (!optionsToggle) {
@@ -98,6 +90,12 @@ container.addEventListener('webkitfullscreenchange', containerFullScreenChange);
 container.addEventListener('mozfullscreenchange', containerFullScreenChange);
 container.addEventListener('msfullscreenchange', containerFullScreenChange);
 
+window.addEventListener("resize", function() {
+    if (fullscreenActive) {
+        containerFullScreenChange()
+    }
+});
+
 fetch('./letters.json')
     .then((data)=>{
         return data.json()
@@ -134,6 +132,13 @@ function addColumn() {
         dot = document.createElement('div')
         dot.classList.add('dot')
         column.appendChild(dot)
+        dot.addEventListener('click',(e)=>{
+            if (!e.target.classList.contains('on')) {
+                e.target.classList.add('on')
+            } else {
+                e.target.classList.remove('on')
+            }
+        })
     }
     container.appendChild(column)
 }
@@ -155,6 +160,8 @@ function compileHeadCss() {
 
 function messageDisplay(displayInput) {
     var staticMessage
+    scrollActive = 0
+    displayActive = 1
 
     if (displayInput.length > noOfColumns) {
         staticMessage = displayInput.slice(0, noOfColumns)
@@ -174,6 +181,7 @@ function messageDisplay(displayInput) {
 function messageScroll(displayInput) {
     let messagePosition = 0
     scrollActive = 1
+    displayActive = 0
 
     scrollTimer = setInterval(()=>{
         columns.forEach((column, index)=>{
@@ -201,7 +209,7 @@ function encodeMessage(displayAlphabet, message) {
         let character = message.substr(i, 1)
         if (displayAlphabet.hasOwnProperty(character)) {
             displayInput = displayInput.concat(displayAlphabet[character])
-            displayInput.push([0, 0, 0, 0, 0, 0, 0, 0, 0])
+            displayInput.push([0,0,0,0,0,0,0,0,0])
         }
     }
     return displayInput
@@ -228,9 +236,11 @@ function containerFullScreenChange() {
         let fsDotSize = window.screen.height / 12
         noOfColumns = Math.floor(window.screen.width / fsDotSize)
         cssDotSize = `.dot { width: ${fsDotSize}px; height: ${fsDotSize}px; }`
+        fullscreenActive = true
     } else {
         noOfColumns = (rngColumns.value / 1)
         cssDotSize = `.dot { width: ${rngDotSize.value}px; height: ${rngDotSize.value}px; }`
+        fullscreenActive = false
     }
 
     createDisplay(noOfColumns)
@@ -238,6 +248,9 @@ function containerFullScreenChange() {
     if (scrollActive) {
         screenRefresh()
         messageScroll(displayInput)
+    } else if (displayActive) {
+        screenRefresh()
+        messageDisplay(displayInput)
     }
 }
 
@@ -245,8 +258,7 @@ function containerFullScreenChange() {
 //
 // function displayCapture() {
 //     let output = []
-//     for (let i=0; i < noOfColumns; i++) {
-//         let column = document.getElementById(`column${i}`)
+//     columns.forEach((column, i)=>{
 //         output.push([])
 //         column.childNodes.forEach((dot, index)=>{
 //             if (dot.classList.contains('on')) {
@@ -255,6 +267,6 @@ function containerFullScreenChange() {
 //                 output[i].push(0)
 //             }
 //         })
-//     }
+//     })
 //     document.getElementById('arrayDump').textContent = JSON.stringify(output.reverse())
 // }

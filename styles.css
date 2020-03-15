@@ -126,6 +126,7 @@ h2 {
     width: 100%;
     overflow-x: hidden;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 #options {
@@ -150,6 +151,24 @@ h2 {
 }
 
 #displayContainer:fullscreen {
+    margin: 0;
+    padding: 7% 0;
+    width: 100%;
+}
+
+#displayContainer:-webkit-full-screen {
+    margin: 0;
+    padding: 7% 0;
+    width: 100%;
+}
+
+#displayContainer:-moz-full-screen {
+    margin: 0;
+    padding: 7% 0;
+    width: 100%;
+}
+
+#displayContainer:-ms-fullscreen {
     margin: 0;
     padding: 7% 0;
     width: 100%;
